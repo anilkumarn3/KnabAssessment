@@ -1,4 +1,5 @@
-using KnabCryptoViewer.Controllers;
+using KnabCryptoViewer.Domain;
+using KnabCryptoViewer.Service;
 using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using KnabCryptoViewer.Models;
 
-namespace KnabCryptoViewer.Controllers
+namespace KnabCryptoViewer.Domain
 {
     public class CryptocurrencyReader : ICryptocurrencyReader
     {
