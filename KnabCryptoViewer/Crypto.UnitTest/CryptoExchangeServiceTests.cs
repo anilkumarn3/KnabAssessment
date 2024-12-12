@@ -29,7 +29,7 @@ public class CryptoExchangeServiceTests
     public async Task Fetch_ReturnsCorrectCryptoValues_ForAllCurrencies()
     {
         // Arrange
-        var cryptoCode = "BTC";  // Example cryptocurrency code
+        var cryptoCode = "BTC";
         var mockCryptoValues = new List<CryptoValue>
         {
             new CryptoValue { Currency = "USD", Price = 30000.23 },
@@ -39,7 +39,6 @@ public class CryptoExchangeServiceTests
             new CryptoValue { Currency = "AUD", Price = 21000.34 }
         };
 
-        // Setup the mock to return a Task with the expected values
         _mockReader.Setup(reader => reader.FetchBitcoinValue(cryptoCode, It.IsAny<string>()))
             .Returns<string, string>((code, currency) =>
             {
@@ -52,14 +51,13 @@ public class CryptoExchangeServiceTests
 
         // Assert
         Assert.NotNull(result);
-        Assert.Equal(5, result.Count); // We expect 5 values, one for each currency
+        Assert.Equal(5, result.Count);
         Assert.Contains(result, x => x.Currency == "USD" && x.Price == 30000.23);
         Assert.Contains(result, x => x.Currency == "EUR" && x.Price == 25000.45);
         Assert.Contains(result, x => x.Currency == "BRL" && x.Price == 15000.23);
         Assert.Contains(result, x => x.Currency == "GBP" && x.Price == 23000.57);
         Assert.Contains(result, x => x.Currency == "AUD" && x.Price == 21000.34);
 
-        // Verify that FetchBitcoinValue was called 5 times (once for each currency)
         _mockReader.Verify(reader => reader.FetchBitcoinValue(cryptoCode, It.IsAny<string>()), Times.Exactly(5));
     }
 
@@ -67,9 +65,8 @@ public class CryptoExchangeServiceTests
     public async Task Fetch_ReturnsEmptyList_WhenFetchBitcoinValueReturnsNull()
     {
         // Arrange
-        var cryptoCode = "BTC";  // Example cryptocurrency code
+        var cryptoCode = "BTC";
 
-        // Setup the mock to return null for all currencies
         _mockReader.Setup(reader => reader.FetchBitcoinValue(cryptoCode, It.IsAny<string>()))
             .Returns<string, string>((code, currency) => Task.FromResult<CryptoValue>(null));
 
@@ -78,14 +75,15 @@ public class CryptoExchangeServiceTests
 
         // Assert
         Assert.NotNull(result);
-        Assert.Null(result[0]);  // Expecting an empty list since no valid data was returned
+        Assert.Null(result[0]);
     }
 
     [Fact]
     public async Task Fetch_ReturnsPartialList_WhenFetchBitcoinValueThrowsException()
     {
         // Arrange
-        var cryptoCode = "BTC";  // Example cryptocurrency code
+        var cryptoCode = "BTC";
+
         var mockCryptoValues = new List<CryptoValue>
         {
             new CryptoValue { Currency = "USD", Price = 30000.23 },
@@ -95,7 +93,6 @@ public class CryptoExchangeServiceTests
             new CryptoValue { Currency = "AUD", Price = 21000.34 }
         };
 
-        // Setup the mock to throw an exception for one currency and return data for others
         _mockReader.Setup(reader => reader.FetchBitcoinValue(cryptoCode, "USD"))
             .Returns(Task.FromResult(mockCryptoValues[0]));
         _mockReader.Setup(reader => reader.FetchBitcoinValue(cryptoCode, "EUR"))
@@ -103,15 +100,13 @@ public class CryptoExchangeServiceTests
         _mockReader.Setup(reader => reader.FetchBitcoinValue(cryptoCode, "BRL"))
             .Returns(Task.FromResult(mockCryptoValues[2]));
 
-        // Simulating an exception for GBP
         _mockReader.Setup(reader => reader.FetchBitcoinValue(cryptoCode, "GBP"))
             .ThrowsAsync(new Exception("Network error"));
 
-        // Return a valid value for AUD
         _mockReader.Setup(reader => reader.FetchBitcoinValue(cryptoCode, "AUD"))
             .Returns(Task.FromResult(mockCryptoValues[4]));
 
-        // Act
+        // Act & Assert
         await Assert.ThrowsAsync<Exception>(async () => await _service.Fetch(cryptoCode));
 
     }
