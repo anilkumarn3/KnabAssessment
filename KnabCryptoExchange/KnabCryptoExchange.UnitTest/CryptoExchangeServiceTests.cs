@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Moq;
-using Xunit;
+﻿using Moq;
 using Microsoft.Extensions.Logging;
 using KnabCryptoExchange.Models;
 using KnabCryptoExchange.Domain;
 using KnabCryptoExchange.Service;
+using FluentAssertions;
 
 namespace Crypto.UnitTest;
 
@@ -19,11 +15,9 @@ public class CryptoExchangeServiceTests
 
     public CryptoExchangeServiceTests()
     {
-        // Initialize mocks
         _mockReader = new Mock<ICryptocurrencyReader>();
         _mockLogger = new Mock<ILogger<CryptoExchangeService>>();
 
-        // Initialize the service with mocked dependencies
         _service = new CryptoExchangeService(_mockReader.Object, _mockLogger.Object);
     }
 
@@ -52,13 +46,13 @@ public class CryptoExchangeServiceTests
         var result = await _service.Fetch(cryptoCode);
 
         // Assert
-        Assert.NotNull(result);
-        Assert.Equal(5, result.Count);
-        Assert.Contains(result, x => x.Currency == "USD" && x.Price == 30000.23);
-        Assert.Contains(result, x => x.Currency == "EUR" && x.Price == 25000.45);
-        Assert.Contains(result, x => x.Currency == "BRL" && x.Price == 15000.23);
-        Assert.Contains(result, x => x.Currency == "GBP" && x.Price == 23000.57);
-        Assert.Contains(result, x => x.Currency == "AUD" && x.Price == 21000.34);
+        result.Should().NotBeNull();
+        result.Should().HaveCount(5);
+        result.Should().Contain(x => x.Currency == "USD" && x.Price == 30000.23);
+        result.Should().Contain(x => x.Currency == "EUR" && x.Price == 25000.45);
+        result.Should().Contain(x => x.Currency == "BRL" && x.Price == 15000.23);
+        result.Should().Contain(x => x.Currency == "GBP" && x.Price == 23000.57);
+        result.Should().Contain(x => x.Currency == "AUD" && x.Price == 21000.34);
 
         _mockReader.Verify(reader => reader.FetchBitcoinValue(cryptoCode, It.IsAny<string>()), Times.Exactly(5));
     }
@@ -77,7 +71,8 @@ public class CryptoExchangeServiceTests
 
         // Assert
         Assert.NotNull(result);
-        Assert.Null(result[0]);
+        result.Should().NotBeNull();
+        result[0].Should().BeNull();
     }
 
     [Fact]
@@ -110,6 +105,5 @@ public class CryptoExchangeServiceTests
 
         // Act & Assert
         await Assert.ThrowsAsync<Exception>(async () => await _service.Fetch(cryptoCode));
-
     }
 }
