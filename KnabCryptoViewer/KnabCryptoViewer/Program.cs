@@ -11,6 +11,7 @@ builder.Configuration.GetSection(nameof(CoinMarketCapConfig)).Bind(marketCapConf
 builder.Services.AddSingleton(marketCapConfig);
 
 builder.Services.AddScoped<CryptocurrencyReader>();
+builder.Services.AddScoped<CryptoExchangeService>();
 
 var app = builder.Build();
 

@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
 using KnabCryptoViewer.Models;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
@@ -9,26 +10,17 @@ namespace KnabCryptoViewer.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly CryptocurrencyReader reader;
+        private readonly CryptoExchangeService cryptoExchangeService;
 
-        public HomeController(ILogger<HomeController> logger, CryptocurrencyReader reader)
+        public HomeController(ILogger<HomeController> logger, CryptoExchangeService cryptoExchangeService)
         {
             _logger = logger;
-            this.reader = reader;
+            this.cryptoExchangeService = cryptoExchangeService;
         }
 
         public async Task<IActionResult> Index(string id)
         {
-            List<string> currencies = new List<string> { "USD", "EUR", "BRL", "GBP", "AUD" };
-
-            var tasks = new List<Task<CryptoValue>>();
-
-            foreach (var currency in currencies)
-            {
-                tasks.Add(reader.FetchBitcoinValue(id, currency));
-            }
-
-            var results = await Task.WhenAll(tasks);
+            var results = await cryptoExchangeService.Fetch(id);
 
             return Ok(results);
         }
