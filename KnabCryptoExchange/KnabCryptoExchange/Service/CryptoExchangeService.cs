@@ -19,12 +19,12 @@ public class CryptoExchangeService : ICryptoExchangeService
         List<string> currencies = new List<string> { "USD", "EUR", "BRL", "GBP", "AUD" };
 
         var tasks = new List<Task<CryptoValue>>();
+        logger.LogInformation("Fetching different equivalent currenies for {CryptocurrencyCode}", cryptoCode);
 
         foreach (var currency in currencies)
         {
             tasks.Add(reader.FetchBitcoinValue(cryptoCode, currency));
         }
-        logger.LogInformation("Fetching Bitcoin value for {CryptocurrencyCode}", cryptoCode);
         var results = await Task.WhenAll(tasks);
 
         return results.ToList();
