@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace KnabCryptoViewer.Controllers
 {
-    public class CryptocurrencyReader
+    public class CryptocurrencyReader : ICryptocurrencyReader
     {
         private readonly CoinMarketCapConfig coinMarketCapSettings;
         private readonly ILogger<CryptocurrencyReader> logger;

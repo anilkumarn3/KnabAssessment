@@ -1,6 +1,6 @@
 ﻿using KnabCryptoViewer.Controllers;
 
-public class CryptoExchangeService
+public class CryptoExchangeService : ICryptoExchangeService
 {
     private readonly CryptocurrencyReader reader;
     private readonly ILogger<CryptoExchangeService> logger;

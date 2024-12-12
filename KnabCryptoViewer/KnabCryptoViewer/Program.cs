@@ -10,8 +10,8 @@ var marketCapConfig = new CoinMarketCapConfig();
 builder.Configuration.GetSection(nameof(CoinMarketCapConfig)).Bind(marketCapConfig);
 builder.Services.AddSingleton(marketCapConfig);
 
-builder.Services.AddScoped<CryptocurrencyReader>();
-builder.Services.AddScoped<CryptoExchangeService>();
+builder.Services.AddScoped<ICryptocurrencyReader, CryptocurrencyReader>();
+builder.Services.AddScoped<ICryptoExchangeService, CryptoExchangeService>();
 
 var app = builder.Build();
 
