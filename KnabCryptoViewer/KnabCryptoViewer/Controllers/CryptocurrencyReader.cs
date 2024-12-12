@@ -1,14 +1,17 @@
 ﻿using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
 
 namespace KnabCryptoViewer.Controllers
 {
     public class CryptocurrencyReader
     {
         private readonly CoinMarketCapConfig coinMarketCapSettings;
+        private readonly ILogger<CryptocurrencyReader> logger;
 
-        public CryptocurrencyReader(CoinMarketCapConfig coinMarketCapSettings)
+        public CryptocurrencyReader(CoinMarketCapConfig coinMarketCapSettings, ILogger<CryptocurrencyReader> logger)
         {
             this.coinMarketCapSettings = coinMarketCapSettings;
+            this.logger = logger;
         }
 
         public async Task<CryptoValue> FetchBitcoinValue(string cryptocurrencyCode, string currency)
@@ -46,16 +49,16 @@ namespace KnabCryptoViewer.Controllers
                             Currency = currency,
                             Price = price
                         };
-                        Console.WriteLine($"Bitcoin Value in {currency}: {price} {currency}");
+                        logger.LogInformation("Bitcoin Value in {Currency}: {Price}", currency, cryptoValue.Price);
                         return cryptoValue;
                     }
 
-                    Console.WriteLine($"Price for {currency} not available.");
+                    logger.LogError($"Price for {currency} not available.");
                     return null;
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error fetching data: {ex.Message}");
+                    logger.LogError($"Error fetching data: {ex.Message}");
                     return null;
                 }
             }
