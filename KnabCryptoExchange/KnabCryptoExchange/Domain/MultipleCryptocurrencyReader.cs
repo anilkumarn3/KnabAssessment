@@ -4,18 +4,18 @@ using KnabCryptoExchange.CustomExceptions;
 
 namespace KnabCryptoExchange.Domain
 {
-    public class CryptocurrencyReader : ICryptocurrencyReader
+    public class MultipleCryptocurrencyReader
     {
         private readonly CoinMarketCapConfig coinMarketCapConfig;
-        private readonly ILogger<CryptocurrencyReader> logger;
+        private readonly ILogger<MultipleCryptocurrencyReader> logger;
 
-        public CryptocurrencyReader(CoinMarketCapConfig coinMarketCapConfig, ILogger<CryptocurrencyReader> logger)
+        public MultipleCryptocurrencyReader(CoinMarketCapConfig coinMarketCapConfig, ILogger<MultipleCryptocurrencyReader> logger)
         {
             this.coinMarketCapConfig = coinMarketCapConfig;
             this.logger = logger;
         }
 
-        public async Task<CryptoValue> FetchBitcoinValue(string cryptocurrencyCode, string currency)
+        public async Task<List<CryptoValue>> FetchBitcoinValue(string cryptocurrencyCode, List<string> currencies)
         {
             var apiKey = coinMarketCapConfig.ApiKey;
             var apiUrl = coinMarketCapConfig.ApiUrl;
@@ -25,7 +25,8 @@ namespace KnabCryptoExchange.Domain
                 client.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", apiKey);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
 
-                string url = $"{apiUrl}?symbol={cryptocurrencyCode}&convert={currency}";
+                string currencyList = string.Join(",", currencies);
+                string url = $"{apiUrl}?symbol={cryptocurrencyCode}&convert={currencyList}";
 
                 try
                 {
@@ -37,19 +38,23 @@ namespace KnabCryptoExchange.Domain
 
                     dynamic responseContent = JsonConvert.DeserializeObject(responseBody);
 
-                    var price = responseContent?.data[cryptocurrencyCode][0].quote[currency]?.price;
-                    if (price != null)
+                    List<CryptoValue> cryptoValues = new List<CryptoValue>();
+                    foreach (var currency in currencies)
                     {
-                        var cryptoValue = new CryptoValue
+                        var price = responseContent?.data[cryptocurrencyCode][0].quote[currency]?.price;
+                        if (price != null)
                         {
-                            Currency = currency,
-                            Price = price
-                        };
-                        logger.LogInformation("Value in {Currency}: {Price}", currency, cryptoValue.Price);
-                        return cryptoValue;
-                    }
+                            var cryptoValue = new CryptoValue
+                            {
+                                Currency = currency,
+                                Price = price
+                            };
+                            cryptoValues.Add(cryptoValue);
+                            logger.LogInformation("Value in {Currency}: {Price}", currency, cryptoValue.Price);
 
-                    logger.LogError("Price for {Currency} not available.", currency);
+                            return cryptoValues;
+                        }
+                    }
                     throw new CryptoExchangeFailedException("Price is not available");
                 }
                 catch (Exception ex)
