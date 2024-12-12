@@ -1,12 +1,12 @@
 using System.Diagnostics;
 using System.Reflection.PortableExecutable;
 using System.Threading.Tasks;
-using KnabCryptoViewer.Models;
-using KnabCryptoViewer.Service;
+using KnabCryptoExchange.Models;
+using KnabCryptoExchange.Service;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KnabCryptoViewer.Controllers
+namespace KnabCryptoExchange.Controllers
 {
     public class HomeController : Controller
     {

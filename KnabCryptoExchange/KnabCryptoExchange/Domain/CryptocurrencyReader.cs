@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
-using KnabCryptoViewer.Models;
+using KnabCryptoExchange.Models;
 
-namespace KnabCryptoViewer.Domain
+namespace KnabCryptoExchange.Domain
 {
     public class CryptocurrencyReader : ICryptocurrencyReader
     {

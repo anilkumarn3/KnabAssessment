@@ -1,7 +1,7 @@
-﻿using KnabCryptoViewer.Domain;
-using KnabCryptoViewer.Models;
+﻿using KnabCryptoExchange.Domain;
+using KnabCryptoExchange.Models;
 
-namespace KnabCryptoViewer.Service;
+namespace KnabCryptoExchange.Service;
 
 public class CryptoExchangeService : ICryptoExchangeService
 {

@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KnabCryptoViewer\KnabCryptoViewer.csproj" />
+    <ProjectReference Include="..\KnabCryptoExchange\KnabCryptoExchange.csproj" />
   </ItemGroup>
 
   <ItemGroup>

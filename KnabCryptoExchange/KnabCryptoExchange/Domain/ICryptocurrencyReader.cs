@@ -1,6 +1,6 @@
-﻿using KnabCryptoViewer.Models;
+﻿using KnabCryptoExchange.Models;
 
-namespace KnabCryptoViewer.Domain
+namespace KnabCryptoExchange.Domain
 {
     public interface ICryptocurrencyReader
     {

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnabCryptoExchange", "KnabCryptoExchange\KnabCryptoExchange.csproj", "{0ED9515E-8018-43D9-BFA8-C91C989D9F67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypto.UnitTest", "Crypto.UnitTest\Crypto.UnitTest.csproj", "{1FA790FF-5599-4B81-A378-6B2FE935146E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnabCryptoExchange.UnitTest", "KnabCryptoExchange.UnitTest\KnabCryptoExchange.UnitTest.csproj", "{1FA790FF-5599-4B81-A378-6B2FE935146E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Moq;
 using Xunit;
 using Microsoft.Extensions.Logging;
-using KnabCryptoViewer.Models;
-using KnabCryptoViewer.Domain;
-using KnabCryptoViewer.Service;
+using KnabCryptoExchange.Models;
+using KnabCryptoExchange.Domain;
+using KnabCryptoExchange.Service;
 
 namespace Crypto.UnitTest;
 

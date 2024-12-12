@@ -1,6 +1,6 @@
-﻿using KnabCryptoViewer.Models;
+﻿using KnabCryptoExchange.Models;
 
-namespace KnabCryptoViewer.Service;
+namespace KnabCryptoExchange.Service;
 
 public interface ICryptoExchangeService
 {

@@ -1,4 +1,4 @@
-namespace KnabCryptoViewer.Models
+namespace KnabCryptoExchange.Models
 {
     public class ErrorViewModel
     {

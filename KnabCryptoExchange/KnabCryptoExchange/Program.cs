@@ -1,5 +1,5 @@
-using KnabCryptoViewer.Domain;
-using KnabCryptoViewer.Service;
+using KnabCryptoExchange.Domain;
+using KnabCryptoExchange.Service;
 using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
