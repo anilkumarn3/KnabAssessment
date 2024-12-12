@@ -10,9 +10,9 @@ namespace KnabCryptoViewer.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly CryptoExchangeService cryptoExchangeService;
+        private readonly ICryptoExchangeService cryptoExchangeService;
 
-        public HomeController(ILogger<HomeController> logger, CryptoExchangeService cryptoExchangeService)
+        public HomeController(ILogger<HomeController> logger, ICryptoExchangeService cryptoExchangeService)
         {
             _logger = logger;
             this.cryptoExchangeService = cryptoExchangeService;

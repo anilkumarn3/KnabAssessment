@@ -2,10 +2,10 @@
 
 public class CryptoExchangeService : ICryptoExchangeService
 {
-    private readonly CryptocurrencyReader reader;
+    private readonly ICryptocurrencyReader reader;
     private readonly ILogger<CryptoExchangeService> logger;
 
-    public CryptoExchangeService(CryptocurrencyReader reader, ILogger<CryptoExchangeService> logger)
+    public CryptoExchangeService(ICryptocurrencyReader reader, ILogger<CryptoExchangeService> logger)
     {
         this.reader = reader;
         this.logger = logger;
