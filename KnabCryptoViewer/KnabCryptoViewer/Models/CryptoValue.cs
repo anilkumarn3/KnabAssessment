@@ -1,4 +1,6 @@
-﻿public class CryptoValue
+﻿namespace KnabCryptoViewer.Models;
+
+public class CryptoValue
 {
     public string Currency { get; set; }
     public double Price { get; set; }

@@ -1,4 +1,6 @@
 ﻿
+using KnabCryptoViewer.Models;
+
 namespace KnabCryptoViewer.Controllers
 {
     public interface ICryptocurrencyReader

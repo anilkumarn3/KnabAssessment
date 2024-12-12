@@ -6,6 +6,7 @@ using Moq;
 using Xunit;
 using Microsoft.Extensions.Logging;
 using KnabCryptoViewer.Controllers;
+using KnabCryptoViewer.Models;
 
 namespace Crypto.UnitTest;
 

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
+using KnabCryptoViewer.Models;
 
 namespace KnabCryptoViewer.Controllers
 {

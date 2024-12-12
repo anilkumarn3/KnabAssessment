@@ -1,4 +1,5 @@
 ﻿using KnabCryptoViewer.Controllers;
+using KnabCryptoViewer.Models;
 
 public class CryptoExchangeService : ICryptoExchangeService
 {
