@@ -2,7 +2,10 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<form asp-action="Exchange" method="post">
+    <div class="form-group">
+        <label for="inputValue">Enter a Crypto Currency Code:</label>
+        <input type="text" id="cryptoCode" name="cryptoCode" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -29,3 +29,14 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Collapses table borders into a single border */
+}
+
+th, td {
+    border: 1px solid black; /* Adds a border around each cell */
+    padding: 8px; /* Adds space inside each cell */
+    text-align: left; /* Aligns text to the left */
+}

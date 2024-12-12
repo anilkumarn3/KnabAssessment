@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Crypto Exchange";
+}
+
+@model List<CryptoValue>
+
+@if (ViewData["CryptoCode"] != null)
+{
+    <div class="alert alert-success">
+        You submitted: @ViewData["CryptoCode"]
+    </div>
+}
+
+<table border="1" class="bordered-table">
+    <thead>
+        <tr>
+            <th>Currency</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var currency in Model)
+        {
+            <tr>
+                <td>@currency.Currency</td>
+                <td>@currency.Price</td> <!-- Formatting as currency -->
+            </tr>
+        }
+    </tbody>
+</table>
