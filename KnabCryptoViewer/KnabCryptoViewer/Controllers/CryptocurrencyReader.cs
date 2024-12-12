@@ -11,7 +11,7 @@ namespace KnabCryptoViewer.Controllers
             this.coinMarketCapSettings = coinMarketCapSettings;
         }
 
-        public async Task FetchBitcoinValue(string cryptocurrencyCode, List<string> currencies)
+        public async Task<CryptoValue> FetchBitcoinValue(string cryptocurrencyCode, string currency)
         {
             var apiKey = coinMarketCapSettings.ApiKey;
             var apiUrl = coinMarketCapSettings.ApiUrl;
@@ -21,42 +21,42 @@ namespace KnabCryptoViewer.Controllers
                 client.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", apiKey);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
 
-                string currencyList = string.Join(",", currencies);
-
-                string url = $"{apiUrl}?symbol={cryptocurrencyCode}&convert={currencyList}";
+                string url = $"{apiUrl}?symbol={cryptocurrencyCode}&convert={currency}";
 
                 try
                 {
-                    //HttpResponseMessage response = await client.GetAsync(url);
+                    HttpResponseMessage response = await client.GetAsync(url);
 
-                    //response.EnsureSuccessStatusCode();
+                    response.EnsureSuccessStatusCode();
 
-                    //string responseBody = await response.Content.ReadAsStringAsync();
-                    string responseBody = string.Empty;
-                    using (StreamReader reader = new StreamReader(@"C:\Users\AKN061\Downloads\test.json"))
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    //string responseBody = string.Empty;
+                    //using (StreamReader reader = new StreamReader(@"C:\Users\AKN061\Downloads\test.json"))
+                    //{
+                    //    responseBody = reader.ReadToEnd();
+                    //}
+
+                    dynamic responseContent = JsonConvert.DeserializeObject(responseBody);
+
+                    var price = responseContent.data[cryptocurrencyCode][0].quote[currency]?.price;
+                    if (price != null)
                     {
-                        responseBody = reader.ReadToEnd();
-                    }
-                    
-                    dynamic data = JsonConvert.DeserializeObject(responseBody);
-
-                    foreach (var currency in currencies)
-                    {
-                        var price = data.data[cryptocurrencyCode][0].quote[currency]?.price;
-                        if (price != null)
+                        var cryptoValue = new CryptoValue
                         {
-                            Console.WriteLine($"Bitcoin Value in {currency}: {price} {currency}");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Price for {currency} not available.");
-                        }
+                            Currency = currency,
+                            Price = price
+                        };
+                        Console.WriteLine($"Bitcoin Value in {currency}: {price} {currency}");
+                        return cryptoValue;
                     }
 
+                    Console.WriteLine($"Price for {currency} not available.");
+                    return null;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error fetching data: {ex.Message}");
+                    return null;
                 }
             }
         }
