@@ -32,17 +32,6 @@ namespace KnabCryptoExchange.Controllers
             {
                 ViewData["CryptoCode"] = cryptoCode;
 
-                //List<CryptoValue> results = new List<CryptoValue>();
-                //for (int i = 0; i < 5; i++)
-                //{
-                //    CryptoValue cryptoValue = new CryptoValue()
-                //    {
-                //        Currency = "USD",
-                //        Price = (1000.00 + 1.00)
-                //    };
-                //    results.Add(cryptoValue);
-                //}
-
                 var results = await cryptoExchangeService.Fetch(cryptoCode);
 
                 return View("Display", results);

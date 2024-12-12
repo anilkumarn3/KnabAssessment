@@ -1,4 +1,5 @@
 using KnabCryptoExchange.Domain;
+using KnabCryptoExchange.Models;
 using KnabCryptoExchange.Service;
 using Microsoft.Extensions.Configuration;
 
@@ -38,10 +39,3 @@ app.MapControllerRoute(
 
 
 app.Run();
-
-
-public class CoinMarketCapConfig
-{
-    public string ApiKey { get; set; }
-    public string ApiUrl { get; set; }
-}

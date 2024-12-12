@@ -6,19 +6,19 @@ namespace KnabCryptoExchange.Domain
 {
     public class CryptocurrencyReader : ICryptocurrencyReader
     {
-        private readonly CoinMarketCapConfig coinMarketCapSettings;
+        private readonly CoinMarketCapConfig coinMarketCapConfig;
         private readonly ILogger<CryptocurrencyReader> logger;
 
-        public CryptocurrencyReader(CoinMarketCapConfig coinMarketCapSettings, ILogger<CryptocurrencyReader> logger)
+        public CryptocurrencyReader(CoinMarketCapConfig coinMarketCapConfig, ILogger<CryptocurrencyReader> logger)
         {
-            this.coinMarketCapSettings = coinMarketCapSettings;
+            this.coinMarketCapConfig = coinMarketCapConfig;
             this.logger = logger;
         }
 
         public async Task<CryptoValue> FetchBitcoinValue(string cryptocurrencyCode, string currency)
         {
-            var apiKey = coinMarketCapSettings.ApiKey;
-            var apiUrl = coinMarketCapSettings.ApiUrl;
+            var apiKey = coinMarketCapConfig.ApiKey;
+            var apiUrl = coinMarketCapConfig.ApiUrl;
 
             using (HttpClient client = new HttpClient())
             {
