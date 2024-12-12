@@ -37,7 +37,7 @@ namespace KnabCryptoExchange.Domain
 
                     dynamic responseContent = JsonConvert.DeserializeObject(responseBody);
 
-                    var price = responseContent?.data[cryptocurrencyCode][0].quote[currency]?.price;
+                    var price = responseContent?.data[cryptocurrencyCode.ToUpper()][0].quote[currency]?.price;
                     if (price != null)
                     {
                         var cryptoValue = new CryptoValue
