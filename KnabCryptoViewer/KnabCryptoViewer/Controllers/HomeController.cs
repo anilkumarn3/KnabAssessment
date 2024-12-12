@@ -43,7 +43,7 @@ namespace KnabCryptoViewer.Controllers
                     CryptoValue cryptoValue = new CryptoValue()
                     { 
                         Currency = "USD", 
-                        Price = (1000 + i).ToString()
+                        Price = (1000.00 + 1.00)
                     };
                     results.Add(cryptoValue);
                 }

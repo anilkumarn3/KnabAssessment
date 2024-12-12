@@ -32,11 +32,11 @@ public class CryptoExchangeServiceTests
         var cryptoCode = "BTC";  // Example cryptocurrency code
         var mockCryptoValues = new List<CryptoValue>
         {
-            new CryptoValue { Currency = "USD", Price = 30000.ToString() },
-            new CryptoValue { Currency = "EUR", Price = 25000.ToString() },
-            new CryptoValue { Currency = "BRL", Price = 150000.ToString() },
-            new CryptoValue { Currency = "GBP", Price = 23000.ToString() },
-            new CryptoValue { Currency = "AUD", Price = 21000.ToString() }
+            new CryptoValue { Currency = "USD", Price = 30000.23 },
+            new CryptoValue { Currency = "EUR", Price = 25000.45 },
+            new CryptoValue { Currency = "BRL", Price = 15000.23 },
+            new CryptoValue { Currency = "GBP", Price = 23000.57 },
+            new CryptoValue { Currency = "AUD", Price = 21000.34 }
         };
 
         // Setup the mock to return a Task with the expected values
@@ -53,11 +53,11 @@ public class CryptoExchangeServiceTests
         // Assert
         Assert.NotNull(result);
         Assert.Equal(5, result.Count); // We expect 5 values, one for each currency
-        Assert.Contains(result, x => x.Currency == "USD" && x.Price == 30000.ToString());
-        Assert.Contains(result, x => x.Currency == "EUR" && x.Price == 25000.ToString());
-        Assert.Contains(result, x => x.Currency == "BRL" && x.Price == 150000.ToString());
-        Assert.Contains(result, x => x.Currency == "GBP" && x.Price == 23000.ToString());
-        Assert.Contains(result, x => x.Currency == "AUD" && x.Price == 21000.ToString());
+        Assert.Contains(result, x => x.Currency == "USD" && x.Price == 30000.23);
+        Assert.Contains(result, x => x.Currency == "EUR" && x.Price == 25000.45);
+        Assert.Contains(result, x => x.Currency == "BRL" && x.Price == 15000.23);
+        Assert.Contains(result, x => x.Currency == "GBP" && x.Price == 23000.57);
+        Assert.Contains(result, x => x.Currency == "AUD" && x.Price == 21000.34);
 
         // Verify that FetchBitcoinValue was called 5 times (once for each currency)
         _mockReader.Verify(reader => reader.FetchBitcoinValue(cryptoCode, It.IsAny<string>()), Times.Exactly(5));
@@ -88,11 +88,11 @@ public class CryptoExchangeServiceTests
         var cryptoCode = "BTC";  // Example cryptocurrency code
         var mockCryptoValues = new List<CryptoValue>
         {
-            new CryptoValue { Currency = "USD", Price = 30000.ToString() },
-            new CryptoValue { Currency = "EUR", Price = 25000.ToString() },
-            new CryptoValue { Currency = "BRL", Price = 150000.ToString() },
-            new CryptoValue { Currency = "GBP", Price = 23000.ToString() },
-            new CryptoValue { Currency = "AUD", Price = 21000.ToString() }
+            new CryptoValue { Currency = "USD", Price = 30000.23 },
+            new CryptoValue { Currency = "EUR", Price = 25000.45 },
+            new CryptoValue { Currency = "BRL", Price = 15000.23 },
+            new CryptoValue { Currency = "GBP", Price = 23000.57 },
+            new CryptoValue { Currency = "AUD", Price = 21000.34 }
         };
 
         // Setup the mock to throw an exception for one currency and return data for others
