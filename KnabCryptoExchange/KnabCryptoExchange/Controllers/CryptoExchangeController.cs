@@ -25,6 +25,7 @@ namespace KnabCryptoExchange.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Exchange(string cryptoCode)
         {
             if (ModelState.IsValid)
