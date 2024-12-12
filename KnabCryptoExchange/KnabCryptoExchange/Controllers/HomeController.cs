@@ -21,33 +21,29 @@ namespace KnabCryptoExchange.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //var results = await cryptoExchangeService.Fetch(id);
-
-            //return Ok(results);
-
             return View();
         }
 
 
         [HttpPost]
-        public IActionResult Exchange(string cryptoCode)
+        public async Task<IActionResult> Exchange(string cryptoCode)
         {
             if (ModelState.IsValid)
             {
-                // Process the submitted value (e.g., save it, use it in some logic)
-                // For demonstration, let's just return it to the view.
                 ViewData["CryptoCode"] = cryptoCode;
 
-                List<CryptoValue> results = new List<CryptoValue>();
-                for (int i = 0; i < 5; i++)
-                {
-                    CryptoValue cryptoValue = new CryptoValue()
-                    { 
-                        Currency = "USD", 
-                        Price = (1000.00 + 1.00)
-                    };
-                    results.Add(cryptoValue);
-                }
+                //List<CryptoValue> results = new List<CryptoValue>();
+                //for (int i = 0; i < 5; i++)
+                //{
+                //    CryptoValue cryptoValue = new CryptoValue()
+                //    {
+                //        Currency = "USD",
+                //        Price = (1000.00 + 1.00)
+                //    };
+                //    results.Add(cryptoValue);
+                //}
+
+                var results = await cryptoExchangeService.Fetch(cryptoCode);
 
                 return View("Display", results);
             }

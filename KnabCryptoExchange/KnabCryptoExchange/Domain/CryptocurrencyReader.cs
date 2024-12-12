@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Microsoft.Extensions.Logging;
 using KnabCryptoExchange.Models;
+using KnabCryptoExchange.CustomExceptions;
 
 namespace KnabCryptoExchange.Domain
 {
@@ -34,15 +34,10 @@ namespace KnabCryptoExchange.Domain
                     response.EnsureSuccessStatusCode();
 
                     string responseBody = await response.Content.ReadAsStringAsync();
-                    //string responseBody = string.Empty;
-                    //using (StreamReader reader = new StreamReader(@"C:\Users\AKN061\Downloads\test.json"))
-                    //{
-                    //    responseBody = reader.ReadToEnd();
-                    //}
 
                     dynamic responseContent = JsonConvert.DeserializeObject(responseBody);
 
-                    var price = responseContent.data[cryptocurrencyCode][0].quote[currency]?.price;
+                    var price = responseContent?.data[cryptocurrencyCode][0].quote[currency]?.price;
                     if (price != null)
                     {
                         var cryptoValue = new CryptoValue
@@ -54,13 +49,12 @@ namespace KnabCryptoExchange.Domain
                         return cryptoValue;
                     }
 
-                    logger.LogError($"Price for {currency} not available.");
-                    return null;
+                    logger.LogError("Price for {Currency} not available.", currency);
+                    throw new CryptoExchangeFailedException("Price is not available");
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError($"Error fetching data: {ex.Message}");
-                    return null;
+                    throw new CryptoExchangeFailedException(ex.Message);
                 }
             }
         }

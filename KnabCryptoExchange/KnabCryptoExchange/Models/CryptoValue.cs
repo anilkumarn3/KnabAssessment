@@ -2,6 +2,6 @@
 
 public class CryptoValue
 {
-    public string Currency { get; set; }
+    public required string Currency { get; set; }
     public double Price { get; set; }
 }
