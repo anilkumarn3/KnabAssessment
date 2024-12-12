@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KnabCryptoExchange.Controllers
 {
-    public class HomeController : Controller
+    public class CryptoExchangeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<CryptoExchangeController> _logger;
         private readonly ICryptoExchangeService cryptoExchangeService;
 
-        public HomeController(ILogger<HomeController> logger, ICryptoExchangeService cryptoExchangeService)
+        public CryptoExchangeController(ILogger<CryptoExchangeController> logger, ICryptoExchangeService cryptoExchangeService)
         {
             _logger = logger;
             this.cryptoExchangeService = cryptoExchangeService;
@@ -23,7 +23,6 @@ namespace KnabCryptoExchange.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Exchange(string cryptoCode)

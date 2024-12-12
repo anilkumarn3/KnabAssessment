@@ -34,7 +34,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id=BTC}")
+    pattern: "{controller=CryptoExchange}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 
